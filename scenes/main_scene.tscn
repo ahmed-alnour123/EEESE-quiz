@@ -1,19 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://c17eff6uvvfhv"]
+[gd_scene load_steps=16 format=3 uid="uid://jrtp0phupjhi"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_081uc"]
 [ext_resource type="PackedScene" uid="uid://bv78kr3tsjafw" path="res://scenes/ui.tscn" id="1_voucq"]
-[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="2_kscqp"]
+[ext_resource type="Script" path="res://questions/content/text_content.gd" id="2_4odid"]
+[ext_resource type="Texture2D" uid="uid://b3utfauwuv8ag" path="res://art/icon.svg" id="2_cjj8c"]
+[ext_resource type="Script" path="res://questions/question.gd" id="2_d0npe"]
+[ext_resource type="PackedScene" uid="uid://bjtn2xayjhipm" path="res://scenes/Player.tscn" id="2_kscqp"]
+[ext_resource type="VideoStream" path="res://media/output.ogv" id="2_lvd6w"]
+[ext_resource type="Script" path="res://questions/content/video_content.gd" id="3_0piie"]
+[ext_resource type="Script" path="res://questions/content/image_content.gd" id="3_62cp8"]
+
+[sub_resource type="Resource" id="Resource_pstgn"]
+script = ExtResource("2_4odid")
+content = "This is a text question test.
+how does it look?"
+
+[sub_resource type="Resource" id="Resource_3bocc"]
+script = ExtResource("2_d0npe")
+content = SubResource("Resource_pstgn")
+choices = Array[String](["Nice", "Very Nice"])
+right_choice = 1
+time = 10.0
+
+[sub_resource type="Resource" id="Resource_g8fo4"]
+script = ExtResource("3_62cp8")
+content = ExtResource("2_cjj8c")
+
+[sub_resource type="Resource" id="Resource_d6b2t"]
+script = ExtResource("2_d0npe")
+content = SubResource("Resource_g8fo4")
+choices = Array[String](["Robot", "GameEngine"])
+right_choice = 0
+time = 5.0
+
+[sub_resource type="Resource" id="Resource_mr4tr"]
+script = ExtResource("3_0piie")
+content = ExtResource("2_lvd6w")
+
+[sub_resource type="Resource" id="Resource_bbm3a"]
+script = ExtResource("2_d0npe")
+content = SubResource("Resource_mr4tr")
+choices = Array[String](["Yes", "What"])
+right_choice = 0
+time = 10.0
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_081uc")
+left_color = Color(1, 0, 0, 1)
+right_color = Color(0, 0, 1, 1)
+questions = Array[ExtResource("2_d0npe")]([SubResource("Resource_3bocc"), SubResource("Resource_d6b2t"), SubResource("Resource_bbm3a")])
 
 [node name="UI" parent="." instance=ExtResource("1_voucq")]
+visible = false
 
-[node name="Player" parent="." instance=ExtResource("2_kscqp")]
-position = Vector2(0, 93)
+[node name="Player1" parent="." instance=ExtResource("2_kscqp")]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(110, 93)
 
 [node name="Player2" parent="." instance=ExtResource("2_kscqp")]
-position = Vector2(0, 540)
+modulate = Color(0, 1, 0, 1)
+position = Vector2(110, 540)
 
 [node name="Player3" parent="." instance=ExtResource("2_kscqp")]
-position = Vector2(-1, 943)
+position = Vector2(109, 943)

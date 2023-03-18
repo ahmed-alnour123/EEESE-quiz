@@ -1,15 +1,181 @@
-[gd_scene format=3 uid="uid://bv78kr3tsjafw"]
+[gd_scene load_steps=11 format=3 uid="uid://bv78kr3tsjafw"]
+
+[ext_resource type="Script" path="res://scenes/ui_manager.gd" id="1_4njew"]
+[ext_resource type="Texture2D" uid="uid://b3utfauwuv8ag" path="res://art/icon.svg" id="1_cxlkw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_immro"]
+bg_color = Color(0.482353, 0.482353, 0.482353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lbk3t"]
+font_size = 81
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_nj27s"]
+file = "res://media/output.ogv"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uq66"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0x5c1"]
+font_size = 81
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ietx2"]
+bg_color = Color(0, 0, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_73xe6"]
+font_size = 81
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1ica"]
+bg_color = Color(0, 1, 0, 1)
+corner_radius_top_right = 360
+corner_radius_bottom_right = 360
+corner_detail = 3
 
 [node name="UI" type="CanvasLayer"]
+offset = Vector2(192, 108)
+scale = Vector2(0.8, 0.8)
+transform = Transform2D(0.8, 0, 0, 0.8, 192, 108)
+script = ExtResource("1_4njew")
 
 [node name="Question" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Panel" type="Panel" parent="Question"]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Padding" type="MarginContainer" parent="Question"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="PanelContainer" type="PanelContainer" parent="Question/Padding"]
+layout_mode = 2
+
+[node name="Padding" type="MarginContainer" parent="Question/Padding/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Column" type="VBoxContainer" parent="Question/Padding/PanelContainer/Padding"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="content" type="Panel" parent="Question/Padding/PanelContainer/Padding/Column"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_immro")
+
+[node name="TextContent" type="Label" parent="Question/Padding/PanelContainer/Padding/Column/content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "EEESE stands for:
+Electrical and Electronic Engineering
+Super Electricity"
+label_settings = SubResource("LabelSettings_lbk3t")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="VideoContent" type="CenterContainer" parent="Question/Padding/PanelContainer/Padding/Column/content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="Question/Padding/PanelContainer/Padding/Column/content/VideoContent"]
+layout_mode = 2
+stream = SubResource("VideoStreamTheora_nj27s")
+
+[node name="ImageContent" type="TextureRect" parent="Question/Padding/PanelContainer/Padding/Column/content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_cxlkw")
+stretch_mode = 5
+
+[node name="ButtonRow" type="HBoxContainer" parent="Question/Padding/PanelContainer/Padding/Column"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Choice1" type="Control" parent="Question/Padding/PanelContainer/Padding/Column/ButtonRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextChoice" type="Label" parent="Question/Padding/PanelContainer/Padding/Column/ButtonRow/Choice1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_1uq66")
+text = "Yes"
+label_settings = SubResource("LabelSettings_0x5c1")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Choice2" type="Control" parent="Question/Padding/PanelContainer/Padding/Column/ButtonRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextChoice" type="Label" parent="Question/Padding/PanelContainer/Padding/Column/ButtonRow/Choice2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ietx2")
+text = "No"
+label_settings = SubResource("LabelSettings_73xe6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_l1ica")
+value = 40.0
+show_percentage = false
